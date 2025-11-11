@@ -39,6 +39,7 @@
             width: 100%;
             position: relative;
             transition: background 0.3s ease, color 0.3s ease;
+            margin: 20px 0;
         }
 
         body.light-mode .container {
@@ -88,6 +89,7 @@
             justify-content: center;
             align-items: center;
             animation: fadeIn 0.3s ease;
+            overflow-y: auto;
         }
 
         .settings-modal.active {
@@ -318,12 +320,15 @@
             display: none;
         }
 
+        /* FIXED: Setup row with proper spacing and overflow prevention */
         .setup-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 15px;
             margin-bottom: 15px;
+            width: 100%;
+            padding: 3px 0;
         }
 
         .setup-row:last-child {
@@ -335,17 +340,33 @@
             color: #2c3e50;
             font-size: 1em;
             min-width: 140px;
+            max-width: 140px;
+            flex-shrink: 0;
         }
 
-        .color-selector, .opponent-selector, .mode-selector, .difficulty-buttons, .timer-buttons {
+        /* FIXED: All button containers constrained properly */
+        .color-selector, 
+        .opponent-selector, 
+        .mode-selector, 
+        .difficulty-buttons, 
+        .timer-buttons {
             display: flex;
             gap: 10px;
             flex: 1;
+            align-items: stretch;
+            max-width: calc(100% - 155px);
+            overflow: visible;
         }
 
-        .color-btn, .opponent-btn, .mode-btn, .difficulty-btn, .timer-btn {
+        /* FIXED: Buttons with proper styling and NO translateY that causes clipping */
+        .color-btn, 
+        .opponent-btn, 
+        .mode-btn, 
+        .difficulty-btn, 
+        .timer-btn {
             flex: 1;
-            padding: 10px 20px;
+            min-width: 0;
+            padding: 10px 15px;
             border: 2px solid #95a5a6;
             border-radius: 8px;
             background: white;
@@ -355,14 +376,27 @@
             color: #2c3e50;
             text-align: center;
             font-size: 1em;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
         }
 
-        .color-btn:hover, .opponent-btn:hover, .mode-btn:hover, .difficulty-btn:hover, .timer-btn:hover {
+        .color-btn:hover, 
+        .opponent-btn:hover, 
+        .mode-btn:hover, 
+        .difficulty-btn:hover, 
+        .timer-btn:hover {
             border-color: #2c3e50;
-            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.15);
         }
 
-        .color-btn.selected, .opponent-btn.selected, .mode-btn.selected, .difficulty-btn.selected, .timer-btn.selected {
+        .color-btn.selected, 
+        .opponent-btn.selected, 
+        .mode-btn.selected, 
+        .difficulty-btn.selected, 
+        .timer-btn.selected {
             background: #2c3e50;
             color: white;
             border-color: #2c3e50;
@@ -379,6 +413,8 @@
             font-weight: 500;
             outline: none;
             transition: border-color 0.2s ease;
+            height: 44px;
+            max-width: calc(100% - 155px);
         }
 
         .name-input:focus {
@@ -862,21 +898,47 @@
             }
         }
 
-        /* MOBILE RESPONSIVE */
+        /* MOBILE RESPONSIVE - BOTH SETUP AND GAME PAGES */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
+                padding: 15px 10px;
             }
 
             .container {
                 padding: 20px 15px;
                 max-width: 100%;
                 width: 100%;
+                margin: 10px 0;
             }
 
             h1 {
                 font-size: 1.6em;
                 margin-bottom: 20px;
+            }
+
+            .setup-panel {
+                padding: 15px;
+            }
+
+            .setup-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .setup-label {
+                min-width: unset;
+                max-width: unset;
+                margin-bottom: 5px;
+            }
+
+            .color-selector, .opponent-selector, .mode-selector, .difficulty-buttons, .timer-buttons {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .name-input {
+                max-width: 100%;
             }
 
             .chessboard-container {
@@ -895,19 +957,6 @@
 
             .timer-value {
                 font-size: 2em;
-            }
-
-            .setup-row {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .setup-label {
-                min-width: unset;
-            }
-
-            .color-selector, .opponent-selector, .mode-selector, .difficulty-buttons, .timer-buttons {
-                width: 100%;
             }
 
             .modal-content {
@@ -949,15 +998,21 @@
 
         @media (max-width: 480px) {
             body {
-                padding: 8px;
+                padding: 10px 5px;
             }
 
             .container {
                 padding: 15px 10px;
+                margin: 5px 0;
             }
 
             h1 {
                 font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+
+            .setup-panel {
+                padding: 12px;
             }
 
             .chessboard {
@@ -990,7 +1045,7 @@
 
             .color-btn, .opponent-btn, .mode-btn, .difficulty-btn, .timer-btn {
                 font-size: 0.9em;
-                padding: 10px 15px;
+                padding: 10px 12px;
             }
 
             .modal-icon {
