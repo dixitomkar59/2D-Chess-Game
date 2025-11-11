@@ -498,7 +498,7 @@
             animation: pulse 1.5s infinite;
         }
 
-        /* FIX: Chessboard centered and contained on mobile */
+        /* FIX: Chessboard perfectly centered on all devices */
         .chessboard {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -830,11 +830,16 @@
             }
         }
 
-        /* FIX: Mobile responsive - board centered and contained */
+        /* FIX: Mobile - Perfect centering with no right shift */
         @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
             .container {
-                padding: 15px;
+                padding: 20px 15px;
                 max-width: 100%;
+                width: 100%;
             }
 
             h1 {
@@ -842,10 +847,13 @@
                 margin-bottom: 20px;
             }
 
+            /* Perfect centering - board width matches container */
             .chessboard {
-                max-width: calc(100vw - 50px);
-                width: calc(100vw - 50px);
+                width: 100%;
+                max-width: 100%;
                 border-width: 4px;
+                margin-left: 0;
+                margin-right: 0;
             }
 
             .square {
@@ -899,8 +907,12 @@
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
             .container {
-                padding: 10px;
+                padding: 15px 10px;
             }
 
             h1 {
@@ -908,8 +920,6 @@
             }
 
             .chessboard {
-                max-width: calc(100vw - 40px);
-                width: calc(100vw - 40px);
                 border-width: 3px;
             }
 
